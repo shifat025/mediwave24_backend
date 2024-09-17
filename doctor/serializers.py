@@ -1,6 +1,16 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Doctor
+from .models import (
+    Doctor, 
+    ProfessionalQualification,
+    Department,
+    Specialization,
+    Experience,
+    AvailableTime,
+    Fee,
+    NationalID,
+    ProfilePic
+)
 
 class DoctorRegistrationSerializer(serializers.ModelSerializer):
     # User-related fields
@@ -20,14 +30,12 @@ class DoctorRegistrationSerializer(serializers.ModelSerializer):
     doctor_registration_number = serializers.CharField(max_length=40)
     doctor_type = serializers.CharField(max_length=30)
     mobile_number = serializers.CharField(max_length=11)
-    available_time = serializers.CharField(max_length=100)
-
     class Meta:
         model = Doctor
         fields = [
             'username','first_name','last_name','email','password','confirm_password', 'title', 'date_of_birth', 'gender', 'district', 
             'national_id_or_passport_number', 'doctor_registration_number', 
-            'doctor_type', 'mobile_number', 'available_time'
+            'doctor_type', 'mobile_number'
         ]
 
     def validate(self, data):
@@ -74,7 +82,7 @@ class DoctorUpdataSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False)
     class Meta:
         model = Doctor
-        fields = ['first_name', 'last_name', 'email', 'title', 'gender', 'district', 'doctor_type', 'mobile_number', 'available_time']
+        fields = ['first_name', 'last_name', 'email', 'title', 'gender', 'district', 'doctor_type', 'mobile_number']
 
     def update(self, instance, validated_data):
         # Update the User model fields if provided
@@ -94,5 +102,52 @@ class DoctorUpdataSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+    
+class ProfessionalQualificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalQualification
+        fields = '__all__'
 
-       
+class ProfessionQualificationUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalQualification
+        fields = ['degree_name', 'institue_name', 'institue_location', 'passing_year', 'duration']
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['name']
+
+class SpecializationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialization
+        fields = '__all__'
+
+class ExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Experience
+        fields = '__all__'
+
+class AvailabletimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AvailableTime
+        fields = '__all__'
+
+class FeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fee
+        fields = '__all__'
+
+class NationalIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NationalID
+        fields = '__all__'
+
+class ProfilePicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePic
+        fields = '__all__'
+
+
+
+    

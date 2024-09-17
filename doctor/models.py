@@ -33,12 +33,12 @@ class ProfessionalQualification(models.Model):
 class Department(models.Model):
     doctor = models.ManyToManyField(Doctor)
     name = models.CharField(max_length=30)
-    slug = AutoSlugField(populate_from='name', unique=True, always_update=False)  # AutoSlugField
+    slug = AutoSlugField(populate_from='name', unique=True, always_update=True)  # AutoSlugField
 
     def __str__(self):
         return self.name
 
-class Specialization(models.Model):   # after modify
+class Specialization(models.Model):   
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True, blank=True )
     specializanation = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=40)
@@ -85,7 +85,7 @@ class Fee(models.Model):
     def __str__(self):
         return f"{self.doctor.user.first_name} {self.doctor.user.last_name}"
 
-class NationID(models.Model):
+class NationalID(models.Model):
     doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='doctor/media/uploads', blank = True, null = True)
 
