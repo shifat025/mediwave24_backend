@@ -69,9 +69,6 @@ class AvailableTime(models.Model):
         return f"{self.day}: {self.time_start} - {self.time_end}"
 
 
-    def __str__(self):
-        return self.name
-    
 class Fee(models.Model):
     doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE)
     regular_fee = models.CharField(max_length=30)

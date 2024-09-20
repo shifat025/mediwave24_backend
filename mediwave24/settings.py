@@ -29,8 +29,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://mediwave24.onrender.com']
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'authentication',
     'doctor',
     'patient',
+    'appointment'
     
 ]
 
